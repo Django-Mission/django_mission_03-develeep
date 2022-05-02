@@ -23,7 +23,16 @@ class FaqModelAdmin(admin.ModelAdmin):
 
 @admin.register(Inquiry)
 class InquiryModelAdmin(admin.ModelAdmin):
-    list_display = ('title', 'title_category', 'created_at', 'writer')
-    search_fields = ['title', 'email', 'message']
-    list_filter = ['title_category']
+    list_display = ('title', 'title_category', 'created_at',
+                    'writer', 'condition_category')
+    search_fields = ['title', 'email', 'message', 'writer__username']
+    list_filter = ['title_category', 'condition_category']
     inlines = [AnswerInline]
+    actions = ['send_mail', ]
+
+    def send_mail(modeladmin, request, queryset):
+        for query in queryset:
+            if query.email_btn:
+                print(query.email)
+            if query.message_btn:
+                print(query.message)

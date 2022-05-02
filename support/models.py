@@ -31,6 +31,13 @@ class Inquiry(models.Model):
         ('general', '일반'),
         ('other', '기타'),
     ]
+    condition = [
+        ('register', '문의 등록'),
+        ('Received', '접수 완료'),
+        ('finish', '답변 완료'),
+    ]
+    condition_category = models.CharField(
+        verbose_name='상태', max_length=8, choices=condition, default='register')
     title_category = models.CharField(
         verbose_name="문의분류", max_length=8, choices=category, default='general')
     title = models.TextField(verbose_name="제목", max_length=30, blank=True)
